@@ -42,9 +42,13 @@ class Hangman:
     '''
     def __init__(self, word_list, num_lives=5):
         # TODO 2: Initialize the attributes as indicated in the docstring
+        self.wold_list = word_list
+        self.num_lives = num_lives
         # TODO 2: Print two message upon initialization:
         # 1. "The mystery word has {len(self.word)} characters" (The number of letters is NOT the UNIQUE number of letters)
         # 2. {word_guessed}
+        print(f'The mystery word has {len(word_list[0])} characters')
+        print(f'{self}') ##to fix
         pass
 
     def check_letter(self, letter) -> None:
@@ -74,17 +78,34 @@ class Hangman:
         If it passes both checks, it calls the check_letter method.
         '''
         # TODO 1: Ask the user for a letter iteratively until the user enters a valid letter
+        letter = ''
+        while True:
+           #guess = pyin.inputStr(promt='Guess a letter:', allowRegexes='\w', blockRegexes='\d|_')
+            letter = input('Guess a letter: ')
+            if len(letter) == 1 and (ord(letter) in range(65,91) )| (ord(letter) in range(97,123)):
+                break
+            print('Please, enter just one character.')
         # TODO 1: Assign the letter to a variable called `letter`
         # TODO 1: The letter has to comply with the following criteria: It has to be a single character. If it is not, print "Please, enter just one character"
+        list_letters = []
         # TODO 2. It has to be a letter that has not been tried yet. Use the list_letters attribute to check this. If it has been tried, print "{letter} was already tried".
+        if letter in list_letters:
+            print(f'{letter} has already been tried.')
+        list_letters.append(letter)
         # TODO 3: If the letter is valid, call the check_letter method
         pass
 
 def play_game(word_list):
     # As an aid, part of the code is already provided:
+    word_guessed = ['_' for character in word_list[0]]
+    print(word_guessed)
     game = Hangman(word_list, num_lives=5)
     # TODO 1: To test this task, you can call the ask_letter method
+    game.ask_letter()    
     # TODO 2: To test this task, upon initialization, two messages should be printed 
+    word_guessed = [character for character in word_list[0]]
+
+    #game2 = Hangman(word_list, num_lives=5)
     # TODO 3: To test this task, you call the ask_letter method and check if the letter is in the word
     
     # TODO 4: Iteratively ask the user for a letter until the user guesses the word or runs out of lives
